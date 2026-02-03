@@ -31,7 +31,7 @@ Les règles suivantes sont appliquées (ou à appliquer) sur `main` (et idéalem
 - Minimum **1 approbation** avant merge
 - Résolution des conversations obligatoire
 - Force push interdit
-- Suppression de branche interdite (recommandé)
+- Suppression des branches protégées (`main`, `dev`) interdite (recommandé)
 
 ## Conventions
 - Conserver une compatibilité ascendante avec les versions déjà livrées
