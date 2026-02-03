@@ -34,7 +34,7 @@ Les règles suivantes sont appliquées (ou à appliquer) sur `main` (et idéalem
 - Suppression des branches protégées (`main`, `dev`) interdite (recommandé)
 
 ## Conventions
-- Conserver une compatibilité ascendante avec les versions déjà livrées
+- Conserver une rétrocompatibilité avec les versions déjà livrées
 - Éviter les changements “cassants” (breaking changes) sans version majeure
 - Messages de commit clairs et courts
 - Commits petits et cohérents
