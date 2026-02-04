@@ -5,98 +5,91 @@ using ProSoft.EasyLog.Utilities;
 namespace ProSoft.EasyLog
 {
     /// <summary>
-    /// Simple JSON file logger for writing log entries
-    /// Thread-safe and synchronous implementation
+    /// Main logger class that writes log entries to daily JSON files
+    /// Thread-safe implementation using lock mechanism
     /// </summary>
     public class JsonFileLogger
     {
         private readonly string _logDirectory;
-        private readonly object _lockObject;
+        private readonly object _lockObject = new object();
 
         /// <summary>
-        /// Creates a new JsonFileLogger
+        /// Initializes a new instance of JsonFileLogger
         /// </summary>
         /// <param name="logDirectory">Directory where log files will be stored</param>
         public JsonFileLogger(string logDirectory)
         {
             _logDirectory = logDirectory;
-            _lockObject = new object();
 
-            // Create log directory if it doesn't exist
-            Directory.CreateDirectory(_logDirectory);
+            // Create directory if it doesn't exist
+            if (!Directory.Exists(_logDirectory))
+            {
+                Directory.CreateDirectory(_logDirectory);
+            }
         }
 
         /// <summary>
-        /// Writes a log entry to the daily log file
+        /// Writes a log entry to the daily JSON file
         /// </summary>
-        public void WriteLog(LogEntry entry)
+        public void WriteLog(string backupName, string sourceFilePath, string targetFilePath,
+                             long fileSize, long transferTime)
         {
-            // Convert paths to UNC format
-            entry.SourceFilePath = PathConverter.ToUncPath(entry.SourceFilePath);
-            entry.TargetFilePath = PathConverter.ToUncPath(entry.TargetFilePath);
-
-            // Thread-safe file writing
             lock (_lockObject)
             {
-                string fileName = $"log_{DateTime.Now:yyyy-MM-dd}.json";
-                string filePath = Path.Combine(_logDirectory, fileName);
+                // Get today's log file path
+                string logFileName = $"log_{DateTime.Now:yyyy-MM-dd}.json";
+                string logFilePath = Path.Combine(_logDirectory, logFileName);
+
+                // Create log entry
+                var entry = new LogEntry
+                {
+                    Timestamp = DateTime.Now,
+                    BackupName = backupName,
+                    SourceFilePath = PathConverter.ToUncPath(sourceFilePath),
+                    TargetFilePath = PathConverter.ToUncPath(targetFilePath),
+                    FileSize = fileSize,
+                    TransferTime = transferTime,
+                    EncryptionTime = null
+                };
 
                 // Read existing entries
                 List<LogEntry> entries = new List<LogEntry>();
-                if (File.Exists(filePath))
+
+                if (File.Exists(logFilePath))
                 {
-                    try
-                    {
-                        string existingContent = File.ReadAllText(filePath);
-                        if (!string.IsNullOrWhiteSpace(existingContent))
-                        {
-                            entries = JsonSerializer.Deserialize<List<LogEntry>>(existingContent)
-                                ?? new List<LogEntry>();
-                        }
-                    }
-                    catch (JsonException)
-                    {
-                        // If file is corrupted, start fresh
-                        entries = new List<LogEntry>();
-                    }
+                    string jsonContent = File.ReadAllText(logFilePath);
+                    entries = JsonSerializer.Deserialize<List<LogEntry>>(jsonContent)
+                              ?? new List<LogEntry>();
                 }
 
                 // Add new entry
                 entries.Add(entry);
 
-                // Write all entries back with indentation
+                // Serialize with indentation
                 var options = new JsonSerializerOptions
                 {
-                    WriteIndented = true,
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                    WriteIndented = true
                 };
 
-                string jsonContent = JsonSerializer.Serialize(entries, options);
-                File.WriteAllText(filePath, jsonContent);
+                string jsonOutput = JsonSerializer.Serialize(entries, options);
+
+                // Write to file
+                File.WriteAllText(logFilePath, jsonOutput);
             }
         }
 
         /// <summary>
-        /// Writes a log entry with all parameters
-        /// Helper method for convenience
+        /// Writes a log entry using a LogEntry object
         /// </summary>
-        public void WriteLog(
-            string backupName,
-            string sourceFilePath,
-            string targetFilePath,
-            long fileSize,
-            long transferTime)
+        public void WriteLog(LogEntry entry)
         {
-            var entry = new LogEntry
-            {
-                BackupName = backupName,
-                SourceFilePath = sourceFilePath,
-                TargetFilePath = targetFilePath,
-                FileSize = fileSize,
-                TransferTime = transferTime
-            };
-
-            WriteLog(entry);
+            WriteLog(
+                entry.BackupName,
+                entry.SourceFilePath,
+                entry.TargetFilePath,
+                entry.FileSize,
+                entry.TransferTime
+            );
         }
     }
 }
