@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="EasyLog.Test/EasyLog.Test.csproj" />
+  <Project Path="EasyLog/EasyLog.csproj" />
+</Solution>
