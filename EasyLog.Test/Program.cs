@@ -1,47 +1,35 @@
 ﻿using ProSoft.EasyLog;
+using ProSoft.EasyLog.Implementation;
 
-Console.WriteLine("=== Test EasyLog v1.0 (JSON uniquement) ===\n");
+namespace EasyLog.Test
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Testing EasyLog v1.1...");
 
-// Créer le logger
-string logPath = Path.Combine(
-    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-    "EasySave", "Logs"
-);
+            // Test JSON format
+            var jsonLogger = LoggerFactory.CreateLogger(LogFormat.JSON, @"C:\Temp\Logs");
+            jsonLogger.LogFileTransfer("TestBackup_JSON",
+                                      @"C:\source\file.txt",
+                                      @"D:\dest\file.txt",
+                                      1024000,
+                                      523);
+            Console.WriteLine("JSON log created successfully!");
 
-var logger = new JsonFileLogger(logPath);
+            // Test XML format
+            var xmlLogger = LoggerFactory.CreateLogger(LogFormat.XML, @"C:\Temp\Logs");
+            xmlLogger.LogFileTransfer("TestBackup_XML",
+                                     @"C:\source\file.txt",
+                                     @"D:\dest\file.txt",
+                                     2048000,
+                                     745);
+            Console.WriteLine("XML log created successfully!");
 
-Console.WriteLine("Écriture de 3 logs de test...\n");
-
-// Test 1
-logger.WriteLog(
-    backupName: "Backup_Documents",
-    sourceFilePath: @"C:\Users\Yann\Documents\rapport.docx",
-    targetFilePath: @"D:\Backups\Documents\rapport.docx",
-    fileSize: 2048576,
-    transferTime: 1523
-);
-Console.WriteLine("✅ Log 1 écrit");
-
-// Test 2
-logger.WriteLog(
-    backupName: "Backup_Photos",
-    sourceFilePath: @"C:\Users\Yann\Pictures\photo.jpg",
-    targetFilePath: @"\\SERVEUR\Backups\Pictures\photo.jpg",
-    fileSize: 524288,
-    transferTime: 234
-);
-Console.WriteLine("✅ Log 2 écrit");
-
-// Test 3 - Erreur
-logger.WriteLog(
-    backupName: "Backup_Videos",
-    sourceFilePath: @"C:\Users\Yann\Videos\film.mp4",
-    targetFilePath: @"D:\Backups\Videos\film.mp4",
-    fileSize: 0,
-    transferTime: -1
-);
-Console.WriteLine("✅ Log 3 écrit (erreur)\n");
-
-Console.WriteLine($"📄 Fichier créé : {logPath}\\log_{DateTime.Now:yyyy-MM-dd}.json");
-Console.WriteLine("\nAppuyez sur une touche...");
-Console.ReadKey();
+            Console.WriteLine("\nTests completed! Check logs at C:\\Temp\\Logs");
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
+        }
+    }
+}
