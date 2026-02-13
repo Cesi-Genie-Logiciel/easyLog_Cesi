@@ -16,7 +16,16 @@
         void LogFileTransfer(string backupName, string sourceFile, string destFile,
                             long fileSize, long durationMs);
 
-        /// Updates the current backup state to persistent storage
+        
+
+        /// <summary>
+        /// Logs a file transfer operation during backup (v2.0+).
+        /// Records source file, destination file, size, transfer duration and encryption duration.
+        /// </summary>
+        /// <param name="encryptionTimeMs">0=no encryption, >0=encryption duration (ms), <0=error code</param>
+        void LogFileTransfer(string backupName, string sourceFile, string destFile,
+                            long fileSize, long durationMs, long encryptionTimeMs);
+/// Updates the current backup state to persistent storage
         /// Used for tracking backup progress and status
         /// Will be implemented in future versions
         void UpdateStateToDisk();

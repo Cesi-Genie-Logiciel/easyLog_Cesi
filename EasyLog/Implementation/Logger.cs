@@ -68,6 +68,35 @@ namespace ProSoft.EasyLog.Implementation
             }
         }
 
+        /// <summary>
+        /// Logs a file transfer operation during backup (v2.0+).
+        /// Records source file, destination file, size, transfer duration and encryption duration.
+        /// </summary>
+        /// <param name="encryptionTimeMs">0=no encryption, >0=encryption duration (ms), <0=error code</param>
+        public void LogFileTransfer(string backupName, string sourceFile, string destFile,
+                                    long fileSize, long durationMs, long encryptionTimeMs)
+        {
+            lock (_lockObject)
+            {
+                var entry = new LogEntry
+                {
+                    Timestamp = DateTime.Now,
+                    BackupName = backupName,
+                    SourceFilePath = PathConverter.ToUncPath(sourceFile),
+                    TargetFilePath = PathConverter.ToUncPath(destFile),
+                    FileSize = fileSize,
+                    TransferTime = durationMs,
+                    EncryptionTime = encryptionTimeMs
+                };
+
+                string formattedLog = _formatter.FormatLogEntry(entry);
+                string logFileName = $"log_{DateTime.Now:yyyy-MM-dd}{_formatter.FileExtension}";
+                string logFilePath = Path.Combine(_logDirectory, logFileName);
+                AppendToLogFile(logFilePath, formattedLog);
+            }
+        }
+
+
         /// Updates backup state to disk
         /// Placeholder for state management functionality (will be implemented in future versions)
         public void UpdateStateToDisk()
