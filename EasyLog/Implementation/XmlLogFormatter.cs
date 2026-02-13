@@ -40,6 +40,21 @@ namespace ProSoft.EasyLog.Implementation
                 logElement.Add(new XElement("EncryptionTime", entry.EncryptionTime.Value));
             }
 
+            if (entry.EventType.HasValue)
+            {
+                logElement.Add(new XElement("EventType", entry.EventType.Value.ToString()));
+            }
+
+            if (!string.IsNullOrWhiteSpace(entry.Reason))
+            {
+                logElement.Add(new XElement("Reason", entry.Reason));
+            }
+
+            if (!string.IsNullOrWhiteSpace(entry.BusinessSoftware))
+            {
+                logElement.Add(new XElement("BusinessSoftware", entry.BusinessSoftware));
+            }
+
             // Convert XElement to indented string
             return logElement.ToString();
         }

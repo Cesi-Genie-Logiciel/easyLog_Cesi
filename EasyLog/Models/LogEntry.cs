@@ -42,6 +42,21 @@
         public long? EncryptionTime { get; set; }
 
         /// <summary>
+        /// Job-level event type (only set for non file-transfer events).
+        /// </summary>
+        public JobEventType? EventType { get; set; }
+
+        /// <summary>
+        /// Optional reason for a job-level event.
+        /// </summary>
+        public string? Reason { get; set; }
+
+        /// <summary>
+        /// Optional business software (process name) that caused the event.
+        /// </summary>
+        public string? BusinessSoftware { get; set; }
+
+        /// <summary>
         /// Constructor initializes timestamp to current time
         /// </summary>
         public LogEntry()
