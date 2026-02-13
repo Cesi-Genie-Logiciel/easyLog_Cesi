@@ -1,4 +1,6 @@
-﻿namespace ProSoft.EasyLog.Interfaces
+﻿using ProSoft.EasyLog.Models;
+
+namespace ProSoft.EasyLog.Interfaces
 {
     /// Main logger interface for writing backup operation logs
     /// Defines the contract for all logger implementations
@@ -25,6 +27,13 @@
         /// <param name="encryptionTimeMs">0=no encryption, >0=encryption duration (ms), <0=error code</param>
         void LogFileTransfer(string backupName, string sourceFile, string destFile,
                             long fileSize, long durationMs, long encryptionTimeMs);
+
+        /// <summary>
+        /// Logs a job-level event (not tied to a file transfer).
+        /// Used for business software detection (v2.0+).
+        /// </summary>
+        void LogJobEvent(string backupName, JobEventType eventType, string? reason = null, string? businessSoftware = null);
+
 /// Updates the current backup state to persistent storage
         /// Used for tracking backup progress and status
         /// Will be implemented in future versions

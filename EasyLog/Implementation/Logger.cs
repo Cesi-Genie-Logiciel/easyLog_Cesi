@@ -161,5 +161,37 @@ namespace ProSoft.EasyLog.Implementation
                 }
             }
         }
+
+        /// <summary>
+        /// Logs a job event (start, completion, error, etc.) for the backup process.
+        /// Includes optional reason and business software information.
+        /// </summary>
+        /// <param name="eventType">Type of the event (e.g., Started, Completed, Error)</param>
+        /// <param name="reason">Optional reason for the event (e.g., error message)</param>
+        /// <param name="businessSoftware">Optional business software context</param>
+        public void LogJobEvent(string backupName, JobEventType eventType, string? reason = null, string? businessSoftware = null)
+        {
+            lock (_lockObject)
+            {
+                var entry = new LogEntry
+                {
+                    Timestamp = DateTime.Now,
+                    BackupName = backupName,
+                    SourceFilePath = string.Empty,
+                    TargetFilePath = string.Empty,
+                    FileSize = 0,
+                    TransferTime = 0,
+                    EncryptionTime = null,
+                    EventType = eventType,
+                    Reason = reason,
+                    BusinessSoftware = businessSoftware
+                };
+
+                string formattedLog = _formatter.FormatLogEntry(entry);
+                string logFileName = $"log_{DateTime.Now:yyyy-MM-dd}{_formatter.FileExtension}";
+                string logFilePath = Path.Combine(_logDirectory, logFileName);
+                AppendToLogFile(logFilePath, formattedLog);
+            }
+        }
     }
 }
