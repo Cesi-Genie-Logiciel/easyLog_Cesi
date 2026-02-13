@@ -2,11 +2,12 @@
 using ProSoft.EasyLog.Models;
 using ProSoft.EasyLog.Utilities;
 
-namespace ProSoft.EasyLog
+namespace ProSoft.EasyLog.Writers
 {
     /// <summary>
-    /// Main logger class that writes log entries to daily JSON files
-    /// Thread-safe implementation using lock mechanism
+    /// JSON file logger implementation
+    /// Writes log entries to daily JSON files
+    /// Thread-safe implementation
     /// </summary>
     public class JsonFileLogger
     {
@@ -21,7 +22,6 @@ namespace ProSoft.EasyLog
         {
             _logDirectory = logDirectory;
 
-            // Create directory if it doesn't exist
             if (!Directory.Exists(_logDirectory))
             {
                 Directory.CreateDirectory(_logDirectory);
@@ -36,11 +36,9 @@ namespace ProSoft.EasyLog
         {
             lock (_lockObject)
             {
-                // Get today's log file path
                 string logFileName = $"log_{DateTime.Now:yyyy-MM-dd}.json";
                 string logFilePath = Path.Combine(_logDirectory, logFileName);
 
-                // Create log entry
                 var entry = new LogEntry
                 {
                     Timestamp = DateTime.Now,
@@ -52,9 +50,7 @@ namespace ProSoft.EasyLog
                     EncryptionTime = null
                 };
 
-                // Read existing entries
                 List<LogEntry> entries = new List<LogEntry>();
-
                 if (File.Exists(logFilePath))
                 {
                     string jsonContent = File.ReadAllText(logFilePath);
@@ -62,34 +58,15 @@ namespace ProSoft.EasyLog
                               ?? new List<LogEntry>();
                 }
 
-                // Add new entry
                 entries.Add(entry);
 
-                // Serialize with indentation
                 var options = new JsonSerializerOptions
                 {
                     WriteIndented = true
                 };
-
                 string jsonOutput = JsonSerializer.Serialize(entries, options);
-
-                // Write to file
                 File.WriteAllText(logFilePath, jsonOutput);
             }
-        }
-
-        /// <summary>
-        /// Writes a log entry using a LogEntry object
-        /// </summary>
-        public void WriteLog(LogEntry entry)
-        {
-            WriteLog(
-                entry.BackupName,
-                entry.SourceFilePath,
-                entry.TargetFilePath,
-                entry.FileSize,
-                entry.TransferTime
-            );
         }
     }
 }
