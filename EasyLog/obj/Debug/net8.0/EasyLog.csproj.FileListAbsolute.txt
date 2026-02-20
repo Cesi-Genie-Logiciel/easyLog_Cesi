@@ -9,3 +9,15 @@ C:\Users\hp\Desktop\VSCode\Génie Logiciel\EasySave\EasyLog\EasyLog\obj\Debug\ne
 C:\Users\hp\Desktop\VSCode\Génie Logiciel\EasySave\EasyLog\EasyLog\obj\Debug\net8.0\refint\EasyLog.dll
 C:\Users\hp\Desktop\VSCode\Génie Logiciel\EasySave\EasyLog\EasyLog\obj\Debug\net8.0\EasyLog.pdb
 C:\Users\hp\Desktop\VSCode\Génie Logiciel\EasySave\EasyLog\EasyLog\obj\Debug\net8.0\ref\EasyLog.dll
+C:\Users\micha\source\repos\easyLog_Cesi\EasyLog\bin\Debug\net8.0\EasyLog.deps.json
+C:\Users\micha\source\repos\easyLog_Cesi\EasyLog\bin\Debug\net8.0\EasyLog.dll
+C:\Users\micha\source\repos\easyLog_Cesi\EasyLog\bin\Debug\net8.0\EasyLog.pdb
+C:\Users\micha\source\repos\easyLog_Cesi\EasyLog\obj\Debug\net8.0\EasyLog.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\micha\source\repos\easyLog_Cesi\EasyLog\obj\Debug\net8.0\EasyLog.AssemblyInfoInputs.cache
+C:\Users\micha\source\repos\easyLog_Cesi\EasyLog\obj\Debug\net8.0\EasyLog.AssemblyInfo.cs
+C:\Users\micha\source\repos\easyLog_Cesi\EasyLog\obj\Debug\net8.0\EasyLog.csproj.CoreCompileInputs.cache
+C:\Users\micha\source\repos\easyLog_Cesi\EasyLog\obj\Debug\net8.0\EasyLog.sourcelink.json
+C:\Users\micha\source\repos\easyLog_Cesi\EasyLog\obj\Debug\net8.0\EasyLog.dll
+C:\Users\micha\source\repos\easyLog_Cesi\EasyLog\obj\Debug\net8.0\refint\EasyLog.dll
+C:\Users\micha\source\repos\easyLog_Cesi\EasyLog\obj\Debug\net8.0\EasyLog.pdb
+C:\Users\micha\source\repos\easyLog_Cesi\EasyLog\obj\Debug\net8.0\ref\EasyLog.dll

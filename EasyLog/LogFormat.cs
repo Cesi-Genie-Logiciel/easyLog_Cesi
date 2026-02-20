@@ -1,7 +1,4 @@
-﻿using ProSoft.EasyLog;
-using System.Net;
-
-namespace ProSoft.EasyLog
+﻿namespace ProSoft.EasyLog
 {
     /// Enumeration of supported log file formats
     /// Used to determine which formatter to instantiate

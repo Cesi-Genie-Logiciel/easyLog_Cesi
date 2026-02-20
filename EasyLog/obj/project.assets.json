@@ -8,19 +8,19 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\hp\\.nuget\\packages\\": {}
+    "C:\\Users\\micha\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hp\\Desktop\\VSCode\\Génie Logiciel\\EasySave\\EasyLog\\EasyLog\\EasyLog.csproj",
+      "projectUniqueName": "C:\\Users\\micha\\source\\repos\\easyLog_Cesi\\EasyLog\\EasyLog.csproj",
       "projectName": "EasyLog",
-      "projectPath": "C:\\Users\\hp\\Desktop\\VSCode\\Génie Logiciel\\EasySave\\EasyLog\\EasyLog\\EasyLog.csproj",
-      "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hp\\Desktop\\VSCode\\Génie Logiciel\\EasySave\\EasyLog\\EasyLog\\obj\\",
+      "projectPath": "C:\\Users\\micha\\source\\repos\\easyLog_Cesi\\EasyLog\\EasyLog.csproj",
+      "packagesPath": "C:\\Users\\micha\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\micha\\source\\repos\\easyLog_Cesi\\EasyLog\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\micha\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -67,7 +67,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,64 +1,19 @@
 ﻿namespace ProSoft.EasyLog.Models
 {
-    /// <summary>
-    /// Represents a single log entry for backup operations
-    /// </summary>
+    // Represent a log entry in the logging system
     public class LogEntry
     {
-        /// <summary>
-        /// Timestamp of the log entry
-        /// </summary>
         public DateTime Timestamp { get; set; }
-
-        /// <summary>
-        /// Name of the backup job
-        /// </summary>
-        public string BackupName { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Full UNC path of the source file
-        /// </summary>
-        public string SourceFilePath { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Full UNC path of the target file
-        /// </summary>
-        public string TargetFilePath { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Size of the file in bytes
-        /// </summary>
+        public string JobName { get; set; } = string.Empty;
+        public string SourcePath { get; set; } = string.Empty;
+        public string DestPath { get; set; } = string.Empty;
         public long FileSize { get; set; }
-
-        /// <summary>
-        /// Transfer time in milliseconds (negative if error occurred)
-        /// </summary>
-        public long TransferTime { get; set; }
-
-        /// <summary>
-        /// Encryption time in milliseconds (for version 2.0+)
-        /// 0 = no encryption, >0 = encryption time, <0 = error code
-        /// </summary>
-        public long? EncryptionTime { get; set; }
-
-        /// <summary>
-        /// Job-level event type (only set for non file-transfer events).
-        /// </summary>
+        public long TransferTimeMs { get; set; }
+        public long? EncryptionTimeMs { get; set; }
         public JobEventType? EventType { get; set; }
-
-        /// <summary>
-        /// Optional reason for a job-level event.
-        /// </summary>
         public string? Reason { get; set; }
+        public string? ContextInfo { get; set; }
 
-        /// <summary>
-        /// Optional business software (process name) that caused the event.
-        /// </summary>
-        public string? BusinessSoftware { get; set; }
-
-        /// <summary>
-        /// Constructor initializes timestamp to current time
-        /// </summary>
         public LogEntry()
         {
             Timestamp = DateTime.Now;
